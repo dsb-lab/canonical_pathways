@@ -1,0 +1,14 @@
+<option value="th2_pathway/toppaths_rnaseq_clinical_target_Infection_all.json">Th2 Pathway - Infection Paths - Targets</option>
+<option value="th2_pathway/toppaths_rnaseq_clinical_target_Infection_Infection.json">Th2 Pathway - Infection Infection - Targets</option>
+<option value="th2_pathway/toppaths_rnaseq_clinical_target_Infection_Healthy.json">Th2 Pathway - Infection Healthy - Targets</option>
+<option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_all.json">Th2 Pathway - Healthy Paths - Targets</option>
+<option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">Th2 Pathway - Healthy Healthy - Targets</option>
+<option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_Infection.json">Th2 Pathway - Healthy Infection - Targets</option>
+<option value="th2_pathway/toppaths_rnaseq_clinical_target_Infection_0.json">Th2 Pathway - Infection 0 - Targets</option>
+<option value="th2_pathway/toppaths_rnaseq_clinical_target_Infection_1.json">Th2 Pathway - Infection 1 - Targets</option>
+<option value="th2_pathway/toppaths_rnaseq_clinical_target_Infection_2.json">Th2 Pathway - Infection 2 - Targets</option>
+<option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_0.json">Th2 Pathway - Healthy 0 - Targets</option>
+<option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_1.json">Th2 Pathway - Healthy 1 - Targets</option>
+<option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_2.json">Th2 Pathway - Healthy 2 - Targets</option>
+<option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_3.json">Th2 Pathway - Healthy 3 - Targets</option>
+<option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_4.json">Th2 Pathway - Healthy 4 - Targets</option>

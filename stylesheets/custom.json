@@ -1,0 +1,31 @@
+[
+    {
+        "selector": "node",
+        "style": {
+            "shape": "ellipse",
+            "width": "data(node_size)",
+            "height": "data(node_size)",
+            "background-color": "data(node_color)",
+            "label": "data(name)",
+            "font-size": "data(font_size)",
+            "color": "data(font_color)",
+            "text-halign": "center",
+            "text-valign": "center",
+            "border-width": "data(borderSize)",
+            "border-color": "data(borderColor)",
+            "text-wrap":"wrap"
+        }
+    },
+    {
+    	"selector": "edge",
+    	"style": {
+            "label": "data(edge_label)",
+            "text-margin-y": "-20px",
+    		"line-color": "data(edge_color)",
+            "width": "data(edge_thick)",
+            "opacity": "data(edge_trans)",
+    		"edge-distances": "intersection",
+            "curve-style": "bezier"
+    	}
+    }
+]

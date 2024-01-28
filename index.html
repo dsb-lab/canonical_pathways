@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <link rel="shortcut icon" href="#"> <!-- fixes some console.log error -->
+
+  <link rel="stylesheet" href="css/normalize.css" />
+  <link rel="stylesheet" href="css/skeleton.css" />
+  <link rel="stylesheet" href="css/font-awesome.css" />
+  <link rel="stylesheet" href="css/open-sans.css" />
+  <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/tooltipster.bundle.min.css" />
+
+  <script src="js/cytoscape.min.js"></script>
+  <script src="js/cola.js"></script>
+  <script src="js/cytoscape-cola.js"></script>
+  <script src="js/jquery-3.1.1.min.js"></script>
+  <script src="js/tooltipster.bundle.min.js"></script>
+  <script src="js/index.js"></script>
+  <script src="js/cytoscape-svg.js"></script>
+  <script src="js/FileSaver.js"></script>
+
+  <script>
+    var saveAsSvg = function(filename) {
+        var svgContent = cy.svg({scale: 0.1, full: true, bg: 'white',display:'block'});
+        var blob = new Blob([svgContent], {type:"image/svg+xml;charset=utf-8"});
+        saveAs(blob, "demo.svg");
+      };
+    var getSvgUrl = function() {
+        var svgContent = cy.svg({scale: 0.1, full: true, bg: 'white',display:'block'});
+        var blob = new Blob([svgContent], {type:"image/svg+xml;charset=utf-8"});
+        var url = URL.createObjectURL(blob);
+        return url;
+      };
+  </script>
+
+  <title>Network Pathways</title>
+</head>
+
+<body>
+  <div id="cy" class="main">
+    <button style="color: white; background-color: #008CBA; width: 100px; height: 30px; text-align: center; padding: 0px; line-height: 0.5;" onclick="saveAsSvg()">Save as SVG</button>
+    <button style="color: white; background-color: #ff0000; width: 100px; height: 30px; text-align: center; padding: 0px; line-height: 0.5;" onclick="window.location=getSvgUrl()">View SVG</button>
+  </div>
+
+  <div class="tools">
+    <h2>Data</h2>
+
+    <p>Choose which subset to display, including Healthy Controls and MS Patients. Each option shows the top pathways for that subset.</p>
+
+    <label for="data" class="tooltip u-pull-left" title="Switch to a new dataset">Active dataset</label>
+    <div class="u-cf"></div>
+    <select class id="data">
+
+        <!-- <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Infection_all.json">Acute Phase Response Signaling - Infection Paths - Sources</option> -->
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Infection_Infection.json">Acute Phase Response Signaling - Infection Infection - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Infection_Healthy.json">Acute Phase Response Signaling - Infection Healthy - Sources</option>
+        <!-- <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Healthy_all.json">Acute Phase Response Signaling - Healthy Paths - Sources</option> -->
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Healthy_Healthy.json">Acute Phase Response Signaling - Healthy Healthy - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Healthy_Infection.json">Acute Phase Response Signaling - Healthy Infection - Sources</option>
+<!--         <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Infection_0.json">Acute Phase Response Signaling - Infection 0 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Infection_1.json">Acute Phase Response Signaling - Infection 1 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Infection_2.json">Acute Phase Response Signaling - Infection 2 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Infection_3.json">Acute Phase Response Signaling - Infection 3 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Infection_4.json">Acute Phase Response Signaling - Infection 4 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Infection_5.json">Acute Phase Response Signaling - Infection 5 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Infection_6.json">Acute Phase Response Signaling - Infection 6 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Infection_7.json">Acute Phase Response Signaling - Infection 7 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Infection_8.json">Acute Phase Response Signaling - Infection 8 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Healthy_0.json">Acute Phase Response Signaling - Healthy 0 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Healthy_1.json">Acute Phase Response Signaling - Healthy 1 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Healthy_2.json">Acute Phase Response Signaling - Healthy 2 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Healthy_3.json">Acute Phase Response Signaling - Healthy 3 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Healthy_4.json">Acute Phase Response Signaling - Healthy 4 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Healthy_5.json">Acute Phase Response Signaling - Healthy 5 - Sources</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_source_Healthy_6.json">Acute Phase Response Signaling - Healthy 6 - Sources</option> -->
+
+
+
+        <!-- <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Infection_all.json">Acute Phase Response Signaling - Infection Paths - Targets</option> -->
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Infection_Infection.json">Acute Phase Response Signaling - Infection Infection - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Infection_Healthy.json">Acute Phase Response Signaling - Infection Healthy - Targets</option>
+        <!-- <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Healthy_all.json">Acute Phase Response Signaling - Healthy Paths - Targets</option> -->
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">Acute Phase Response Signaling - Healthy Healthy - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Healthy_Infection.json">Acute Phase Response Signaling - Healthy Infection - Targets</option>
+<!--         <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Infection_0.json">Acute Phase Response Signaling - Infection 0 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Infection_1.json">Acute Phase Response Signaling - Infection 1 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Infection_2.json">Acute Phase Response Signaling - Infection 2 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Infection_3.json">Acute Phase Response Signaling - Infection 3 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Infection_4.json">Acute Phase Response Signaling - Infection 4 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Infection_5.json">Acute Phase Response Signaling - Infection 5 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Infection_6.json">Acute Phase Response Signaling - Infection 6 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Infection_7.json">Acute Phase Response Signaling - Infection 7 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Infection_8.json">Acute Phase Response Signaling - Infection 8 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Infection_9.json">Acute Phase Response Signaling - Infection 9 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Healthy_0.json">Acute Phase Response Signaling - Healthy 0 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Healthy_1.json">Acute Phase Response Signaling - Healthy 1 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Healthy_2.json">Acute Phase Response Signaling - Healthy 2 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Healthy_3.json">Acute Phase Response Signaling - Healthy 3 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Healthy_4.json">Acute Phase Response Signaling - Healthy 4 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Healthy_5.json">Acute Phase Response Signaling - Healthy 5 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Healthy_6.json">Acute Phase Response Signaling - Healthy 6 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Healthy_7.json">Acute Phase Response Signaling - Healthy 7 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Healthy_8.json">Acute Phase Response Signaling - Healthy 8 - Targets</option>
+        <option value="acute_phase_response_signaling/toppaths_rnaseq_clinical_target_Healthy_9.json">Acute Phase Response Signaling - Healthy 9 - Targets</option> -->
+
+        <!-- <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_source_Infection_all.json">Huntington's Disease Signaling - Infection Paths - Sources</option> -->
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_source_Infection_Infection.json">Huntington's Disease Signaling - Infection Infection - Sources</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_source_Infection_Healthy.json">Huntington's Disease Signaling - Infection Healthy - Sources</option>
+        <!-- <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_source_Healthy_all.json">Huntington's Disease Signaling - Healthy Paths - Sources</option> -->
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_source_Healthy_Healthy.json">Huntington's Disease Signaling - Healthy Healthy - Sources</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_source_Healthy_Infection.json">Huntington's Disease Signaling - Healthy Infection - Sources</option>
+<!--         <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_source_Infection_0.json">Huntington's Disease Signaling - Infection 0 - Sources</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_source_Healthy_0.json">Huntington's Disease Signaling - Healthy 0 - Sources</option> -->
+
+        <!-- <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Infection_all.json">Huntington's Disease Signaling - Infection Paths - Targets</option> -->
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Infection_Infection.json">Huntington's Disease Signaling - Infection Infection - Targets</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Infection_Healthy.json">Huntington's Disease Signaling - Infection Healthy - Targets</option>
+        <!-- <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Healthy_all.json">Huntington's Disease Signaling - Healthy Paths - Targets</option> -->
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">Huntington's Disease Signaling - Healthy Healthy - Targets</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Healthy_Infection.json">Huntington's Disease Signaling - Healthy Infection - Targets</option>
+<!--         <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Infection_0.json">Huntington's Disease Signaling - Infection 0 - Targets</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Infection_1.json">Huntington's Disease Signaling - Infection 1 - Targets</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Healthy_0.json">Huntington's Disease Signaling - Healthy 0 - Targets</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Healthy_1.json">Huntington's Disease Signaling - Healthy 1 - Targets</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Healthy_2.json">Huntington's Disease Signaling - Healthy 2 - Targets</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Healthy_3.json">Huntington's Disease Signaling - Healthy 3 - Targets</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Healthy_4.json">Huntington's Disease Signaling - Healthy 4 - Targets</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Healthy_5.json">Huntington's Disease Signaling - Healthy 5 - Targets</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Healthy_6.json">Huntington's Disease Signaling - Healthy 6 - Targets</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Healthy_7.json">Huntington's Disease Signaling - Healthy 7 - Targets</option>
+        <option value="huntington's_disease_signaling/toppaths_rnaseq_clinical_target_Healthy_8.json">Huntington's Disease Signaling - Healthy 8 - Targets</option> -->
+
+        <!-- <option value="il-4_signaling/toppaths_rnaseq_clinical_source_Infection_all.json">IL-4 Signaling - Infection Paths - Sources</option> -->
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_source_Infection_Infection.json">IL-4 Signaling - Infection Infection - Sources</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_source_Infection_Healthy.json">IL-4 Signaling - Infection Healthy - Sources</option>
+        <!-- <option value="il-4_signaling/toppaths_rnaseq_clinical_source_Healthy_all.json">IL-4 Signaling - Healthy Paths - Sources</option> -->
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_source_Healthy_Healthy.json">IL-4 Signaling - Healthy Healthy - Sources</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_source_Healthy_Infection.json">IL-4 Signaling - Healthy Infection - Sources</option>
+<!--         <option value="il-4_signaling/toppaths_rnaseq_clinical_source_Infection_0.json">IL-4 Signaling - Infection 0 - Sources</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_source_Healthy_0.json">IL-4 Signaling - Healthy 0 - Sources</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_source_Healthy_1.json">IL-4 Signaling - Healthy 1 - Sources</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_source_Healthy_2.json">IL-4 Signaling - Healthy 2 - Sources</option> -->
+
+        <!-- <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Infection_all.json">IL-4 Signaling - Infection Paths - Targets</option> -->
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Infection_Infection.json">IL-4 Signaling - Infection Infection - Targets</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Infection_Healthy.json">IL-4 Signaling - Infection Healthy - Targets</option>
+        <!-- <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Healthy_all.json">IL-4 Signaling - Healthy Paths - Targets</option> -->
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">IL-4 Signaling - Healthy Healthy - Targets</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Healthy_Infection.json">IL-4 Signaling - Healthy Infection - Targets</option>
+<!--         <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Infection_0.json">IL-4 Signaling - Infection 0 - Targets</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Infection_1.json">IL-4 Signaling - Infection 1 - Targets</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Healthy_0.json">IL-4 Signaling - Healthy 0 - Targets</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Healthy_1.json">IL-4 Signaling - Healthy 1 - Targets</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Healthy_2.json">IL-4 Signaling - Healthy 2 - Targets</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Healthy_3.json">IL-4 Signaling - Healthy 3 - Targets</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Healthy_4.json">IL-4 Signaling - Healthy 4 - Targets</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Healthy_5.json">IL-4 Signaling - Healthy 5 - Targets</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Healthy_6.json">IL-4 Signaling - Healthy 6 - Targets</option>
+        <option value="il-4_signaling/toppaths_rnaseq_clinical_target_Healthy_7.json">IL-4 Signaling - Healthy 7 - Targets</option> -->
+
+        <!-- <option value="il-6_signaling/toppaths_rnaseq_clinical_source_Infection_all.json">IL-6 Signaling - Infection Paths - Sources</option> -->
+        <option value="il-6_signaling/toppaths_rnaseq_clinical_source_Infection_Infection.json">IL-6 Signaling - Infection Infection - Sources</option>
+        <option value="il-6_signaling/toppaths_rnaseq_clinical_source_Infection_Healthy.json">IL-6 Signaling - Infection Healthy - Sources</option>
+        <!-- <option value="il-6_signaling/toppaths_rnaseq_clinical_source_Healthy_all.json">IL-6 Signaling - Healthy Paths - Sources</option> -->
+        <option value="il-6_signaling/toppaths_rnaseq_clinical_source_Healthy_Healthy.json">IL-6 Signaling - Healthy Healthy - Sources</option>
+        <option value="il-6_signaling/toppaths_rnaseq_clinical_source_Healthy_Infection.json">IL-6 Signaling - Healthy Infection - Sources</option>
+<!--         <option value="il-6_signaling/toppaths_rnaseq_clinical_source_Infection_0.json">IL-6 Signaling - Infection 0 - Sources</option>
+        <option value="il-6_signaling/toppaths_rnaseq_clinical_source_Healthy_0.json">IL-6 Signaling - Healthy 0 - Sources</option>
+        <option value="il-6_signaling/toppaths_rnaseq_clinical_source_Healthy_1.json">IL-6 Signaling - Healthy 1 - Sources</option> -->
+
+        <!-- <option value="il-6_signaling/toppaths_rnaseq_clinical_target_Infection_all.json">IL-6 Signaling - Infection Paths - Targets</option> -->
+        <option value="il-6_signaling/toppaths_rnaseq_clinical_target_Infection_Infection.json">IL-6 Signaling - Infection Infection - Targets</option>
+        <option value="il-6_signaling/toppaths_rnaseq_clinical_target_Infection_Healthy.json">IL-6 Signaling - Infection Healthy - Targets</option>
+        <!-- <option value="il-6_signaling/toppaths_rnaseq_clinical_target_Healthy_all.json">IL-6 Signaling - Healthy Paths - Targets</option> -->
+        <option value="il-6_signaling/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">IL-6 Signaling - Healthy Healthy - Targets</option>
+        <option value="il-6_signaling/toppaths_rnaseq_clinical_target_Healthy_Infection.json">IL-6 Signaling - Healthy Infection - Targets</option>
+<!--         <option value="il-6_signaling/toppaths_rnaseq_clinical_target_Infection_0.json">IL-6 Signaling - Infection 0 - Targets</option>
+        <option value="il-6_signaling/toppaths_rnaseq_clinical_target_Healthy_0.json">IL-6 Signaling - Healthy 0 - Targets</option>
+        <option value="il-6_signaling/toppaths_rnaseq_clinical_target_Healthy_1.json">IL-6 Signaling - Healthy 1 - Targets</option>
+        <option value="il-6_signaling/toppaths_rnaseq_clinical_target_Healthy_2.json">IL-6 Signaling - Healthy 2 - Targets</option> -->
+
+
+        <!-- <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_source_Infection_all.json">Neuroinflammation Signaling Pathway - Infection Paths - Sources</option> -->
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_source_Infection_Infection.json">Neuroinflammation Signaling Pathway - Infection Infection - Sources</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_source_Infection_Healthy.json">Neuroinflammation Signaling Pathway - Infection Healthy - Sources</option>
+        <!-- <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_source_Healthy_all.json">Neuroinflammation Signaling Pathway - Healthy Paths - Sources</option> -->
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_source_Healthy_Healthy.json">Neuroinflammation Signaling Pathway - Healthy Healthy - Sources</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_source_Healthy_Infection.json">Neuroinflammation Signaling Pathway - Healthy Infection - Sources</option>
+<!--         <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_source_Infection_0.json">Neuroinflammation Signaling Pathway - Infection 0 - Sources</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_source_Infection_1.json">Neuroinflammation Signaling Pathway - Infection 1 - Sources</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_source_Infection_2.json">Neuroinflammation Signaling Pathway - Infection 2 - Sources</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_source_Healthy_0.json">Neuroinflammation Signaling Pathway - Healthy 0 - Sources</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_source_Healthy_1.json">Neuroinflammation Signaling Pathway - Healthy 1 - Sources</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_source_Healthy_2.json">Neuroinflammation Signaling Pathway - Healthy 2 - Sources</option> -->
+
+
+        <!-- <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Infection_all.json">Neuroinflammation Signaling Pathway - Infection Paths - Targets</option> -->
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Infection_Infection.json">Neuroinflammation Signaling Pathway - Infection Infection - Targets</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Infection_Healthy.json">Neuroinflammation Signaling Pathway - Infection Healthy - Targets</option>
+        <!-- <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Healthy_all.json">Neuroinflammation Signaling Pathway - Healthy Paths - Targets</option> -->
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">Neuroinflammation Signaling Pathway - Healthy Healthy - Targets</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Healthy_Infection.json">Neuroinflammation Signaling Pathway - Healthy Infection - Targets</option>
+<!--         <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Infection_0.json">Neuroinflammation Signaling Pathway - Infection 0 - Targets</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Infection_1.json">Neuroinflammation Signaling Pathway - Infection 1 - Targets</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Infection_2.json">Neuroinflammation Signaling Pathway - Infection 2 - Targets</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Infection_3.json">Neuroinflammation Signaling Pathway - Infection 3 - Targets</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Infection_4.json">Neuroinflammation Signaling Pathway - Infection 4 - Targets</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Infection_5.json">Neuroinflammation Signaling Pathway - Infection 5 - Targets</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Infection_6.json">Neuroinflammation Signaling Pathway - Infection 6 - Targets</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Healthy_0.json">Neuroinflammation Signaling Pathway - Healthy 0 - Targets</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Healthy_1.json">Neuroinflammation Signaling Pathway - Healthy 1 - Targets</option>
+        <option value="neuroinflammation_signaling_pathway/toppaths_rnaseq_clinical_target_Healthy_2.json">Neuroinflammation Signaling Pathway - Healthy 2 - Targets</option> -->
+
+        <!-- <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_source_Infection_all.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Infection Paths - Sources</option> -->
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_source_Infection_Infection.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Infection Infection - Sources</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_source_Infection_Healthy.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Infection Healthy - Sources</option>
+        <!-- <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_source_Healthy_all.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Healthy Paths - Sources</option> -->
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_source_Healthy_Healthy.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Healthy Healthy - Sources</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_source_Healthy_Infection.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Healthy Infection - Sources</option>
+<!--         <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_source_Infection_0.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Infection 0 - Sources</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_source_Infection_1.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Infection 1 - Sources</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_source_Healthy_0.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Healthy 0 - Sources</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_source_Healthy_1.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Healthy 1 - Sources</option> -->
+
+        <!-- <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Infection_all.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Infection Paths - Targets</option> -->
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Infection_Infection.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Infection Infection - Targets</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Infection_Healthy.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Infection Healthy - Targets</option>
+        <!-- <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Healthy_all.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Healthy Paths - Targets</option> -->
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Healthy Healthy - Targets</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Healthy_Infection.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Healthy Infection - Targets</option>
+<!--         <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Infection_0.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Infection 0 - Targets</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Infection_1.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Infection 1 - Targets</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Infection_2.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Infection 2 - Targets</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Infection_3.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Infection 3 - Targets</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Healthy_0.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Healthy 0 - Targets</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Healthy_1.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Healthy 1 - Targets</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Healthy_2.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Healthy 2 - Targets</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Healthy_3.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Healthy 3 - Targets</option>
+        <option value="role_of_jak1_and_jak3_in_gamma-c_cytokine_signaling/toppaths_rnaseq_clinical_target_Healthy_4.json">Role of JAK1 and JAK3 in gamma-c Cytokine Signaling - Healthy 4 - Targets</option> -->
+
+        <!-- <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_source_Infection_all.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Infection Paths - Sources</option> -->
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_source_Infection_Infection.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Infection Infection - Sources</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_source_Infection_Healthy.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Infection Healthy - Sources</option>
+        <!-- <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_source_Healthy_all.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy Paths - Sources</option> -->
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_source_Healthy_Healthy.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy Healthy - Sources</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_source_Healthy_Infection.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy Infection - Sources</option>
+<!--         <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_source_Infection_0.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Infection 0 - Sources</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_source_Healthy_0.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy 0 - Sources</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_source_Healthy_1.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy 1 - Sources</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_source_Healthy_2.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy 2 - Sources</option> -->
+
+        <!-- <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Infection_all.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Infection Paths - Targets</option> -->
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Infection_Infection.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Infection Infection - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Infection_Healthy.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Infection Healthy - Targets</option>
+        <!-- <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Healthy_all.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy Paths - Targets</option> -->
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy Healthy - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Healthy_Infection.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy Infection - Targets</option>
+<!--         <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Infection_0.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Infection 0 - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Infection_1.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Infection 1 - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Infection_2.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Infection 2 - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Infection_3.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Infection 3 - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Healthy_0.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy 0 - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Healthy_1.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy 1 - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Healthy_2.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy 2 - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Healthy_3.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy 3 - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Healthy_4.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy 4 - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Healthy_5.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy 5 - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Healthy_6.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy 6 - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Healthy_7.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy 7 - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Healthy_8.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy 8 - Targets</option>
+        <option value="role_of_macrophages,_fibroblasts_and_endothelial_cells_in_rheumatoid_arthritis/toppaths_rnaseq_clinical_target_Healthy_9.json">Role of Macrophages, Fibroblasts and Endothelial Cells in Rheumatoid Arthritis - Healthy 9 - Targets</option> -->
+
+        <!-- <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_source_Infection_all.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Infection Paths - Sources</option> -->
+        <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_source_Infection_Infection.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Infection Infection - Sources</option>
+        <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_source_Infection_Healthy.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Infection Healthy - Sources</option>
+        <!-- <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_source_Healthy_all.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Healthy Paths - Sources</option> -->
+        <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_source_Healthy_Healthy.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Healthy Healthy - Sources</option>
+        <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_source_Healthy_Infection.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Healthy Infection - Sources</option>
+<!--         <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_source_Infection_0.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Infection 0 - Sources</option>
+        <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_source_Healthy_0.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Healthy 0 - Sources</option> -->
+
+        <!-- <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_target_Infection_all.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Infection Paths - Targets</option> -->
+        <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_target_Infection_Infection.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Infection Infection - Targets</option>
+        <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_target_Infection_Healthy.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Infection Healthy - Targets</option>
+        <!-- <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_target_Healthy_all.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Healthy Paths - Targets</option> -->
+        <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Healthy Healthy - Targets</option>
+        <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_target_Healthy_Infection.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Healthy Infection - Targets</option>
+<!--         <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_target_Infection_0.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Infection 0 - Targets</option>
+        <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_target_Healthy_0.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Healthy 0 - Targets</option>
+        <option value="role_of_pattern_recognition_receptors_in_recognition_of_bacteria_and_viruses/toppaths_rnaseq_clinical_target_Healthy_1.json">Role of Pattern Recognition Receptors in Recognition of Bacteria and Viruses - Healthy 1 - Targets</option> -->
+
+        <!-- <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_source_Infection_all.json">Role of Tissue Factor in Cancer - Infection Paths - Sources</option> -->
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_source_Infection_Infection.json">Role of Tissue Factor in Cancer - Infection Infection - Sources</option>
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_source_Infection_Healthy.json">Role of Tissue Factor in Cancer - Infection Healthy - Sources</option>
+        <!-- <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_source_Healthy_all.json">Role of Tissue Factor in Cancer - Healthy Paths - Sources</option> -->
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_source_Healthy_Healthy.json">Role of Tissue Factor in Cancer - Healthy Healthy - Sources</option>
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_source_Healthy_Infection.json">Role of Tissue Factor in Cancer - Healthy Infection - Sources</option>
+<!--         <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_source_Infection_0.json">Role of Tissue Factor in Cancer - Infection 0 - Sources</option>
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_source_Infection_1.json">Role of Tissue Factor in Cancer - Infection 1 - Sources</option>
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_source_Healthy_0.json">Role of Tissue Factor in Cancer - Healthy 0 - Sources</option>
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_source_Healthy_1.json">Role of Tissue Factor in Cancer - Healthy 1 - Sources</option>
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_source_Healthy_2.json">Role of Tissue Factor in Cancer - Healthy 2 - Sources</option> -->
+
+        <!-- <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Infection_all.json">Role of Tissue Factor in Cancer - Infection Paths - Targets</option> -->
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Infection_Infection.json">Role of Tissue Factor in Cancer - Infection Infection - Targets</option>
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Infection_Healthy.json">Role of Tissue Factor in Cancer - Infection Healthy - Targets</option>
+        <!-- <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Healthy_all.json">Role of Tissue Factor in Cancer - Healthy Paths - Targets</option> -->
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">Role of Tissue Factor in Cancer - Healthy Healthy - Targets</option>
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Healthy_Infection.json">Role of Tissue Factor in Cancer - Healthy Infection - Targets</option>
+<!--         <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Infection_0.json">Role of Tissue Factor in Cancer - Infection 0 - Targets</option>
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Healthy_0.json">Role of Tissue Factor in Cancer - Healthy 0 - Targets</option>
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Healthy_1.json">Role of Tissue Factor in Cancer - Healthy 1 - Targets</option>
+        <option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Healthy_2.json">Role of Tissue Factor in Cancer - Healthy 2 - Targets</option> -->
+
+        <!-- <option value="stat3_pathway/toppaths_rnaseq_clinical_source_Infection_all.json">STAT3 Pathway - Infection Paths - Sources</option> -->
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_source_Infection_Infection.json">STAT3 Pathway - Infection Infection - Sources</option>
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_source_Infection_Healthy.json">STAT3 Pathway - Infection Healthy - Sources</option>
+        <!-- <option value="stat3_pathway/toppaths_rnaseq_clinical_source_Healthy_all.json">STAT3 Pathway - Healthy Paths - Sources</option> -->
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_source_Healthy_Healthy.json">STAT3 Pathway - Healthy Healthy - Sources</option>
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_source_Healthy_Infection.json">STAT3 Pathway - Healthy Infection - Sources</option>
+<!--         <option value="stat3_pathway/toppaths_rnaseq_clinical_source_Infection_0.json">STAT3 Pathway - Infection 0 - Sources</option>
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_source_Healthy_0.json">STAT3 Pathway - Healthy 0 - Sources</option>
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_source_Healthy_1.json">STAT3 Pathway - Healthy 1 - Sources</option> -->
+
+        <!-- <option value="stat3_pathway/toppaths_rnaseq_clinical_target_Infection_all.json">STAT3 Pathway - Infection Paths - Targets</option> -->
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_target_Infection_Infection.json">STAT3 Pathway - Infection Infection - Targets</option>
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_target_Infection_Healthy.json">STAT3 Pathway - Infection Healthy - Targets</option>
+        <!-- <option value="stat3_pathway/toppaths_rnaseq_clinical_target_Healthy_all.json">STAT3 Pathway - Healthy Paths - Targets</option> -->
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">STAT3 Pathway - Healthy Healthy - Targets</option>
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_target_Healthy_Infection.json">STAT3 Pathway - Healthy Infection - Targets</option>
+<!--         <option value="stat3_pathway/toppaths_rnaseq_clinical_target_Infection_0.json">STAT3 Pathway - Infection 0 - Targets</option>
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_target_Infection_1.json">STAT3 Pathway - Infection 1 - Targets</option>
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_target_Infection_2.json">STAT3 Pathway - Infection 2 - Targets</option>
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_target_Healthy_0.json">STAT3 Pathway - Healthy 0 - Targets</option>
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_target_Healthy_1.json">STAT3 Pathway - Healthy 1 - Targets</option>
+        <option value="stat3_pathway/toppaths_rnaseq_clinical_target_Healthy_2.json">STAT3 Pathway - Healthy 2 - Targets</option> -->
+
+        <!-- <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_source_Infection_all.json">T Helper Cell Differentiation - Infection Paths - Sources</option> -->
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_source_Infection_Infection.json">T Helper Cell Differentiation - Infection Infection - Sources</option>
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_source_Infection_Healthy.json">T Helper Cell Differentiation - Infection Healthy - Sources</option>
+        <!-- <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_source_Healthy_all.json">T Helper Cell Differentiation - Healthy Paths - Sources</option> -->
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_source_Healthy_Healthy.json">T Helper Cell Differentiation - Healthy Healthy - Sources</option>
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_source_Healthy_Infection.json">T Helper Cell Differentiation - Healthy Infection - Sources</option>
+<!--         <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_source_Infection_0.json">T Helper Cell Differentiation - Infection 0 - Sources</option>
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_source_Healthy_0.json">T Helper Cell Differentiation - Healthy 0 - Sources</option> -->
+
+        <!-- <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Infection_all.json">T Helper Cell Differentiation - Infection Paths - Targets</option> -->
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Infection_Infection.json">T Helper Cell Differentiation - Infection Infection - Targets</option>
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Infection_Healthy.json">T Helper Cell Differentiation - Infection Healthy - Targets</option>
+        <!-- <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Healthy_all.json">T Helper Cell Differentiation - Healthy Paths - Targets</option> -->
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">T Helper Cell Differentiation - Healthy Healthy - Targets</option>
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Healthy_Infection.json">T Helper Cell Differentiation - Healthy Infection - Targets</option>
+<!--         <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Infection_0.json">T Helper Cell Differentiation - Infection 0 - Targets</option>
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Infection_1.json">T Helper Cell Differentiation - Infection 1 - Targets</option>
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Infection_2.json">T Helper Cell Differentiation - Infection 2 - Targets</option>
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Infection_3.json">T Helper Cell Differentiation - Infection 3 - Targets</option>
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Infection_4.json">T Helper Cell Differentiation - Infection 4 - Targets</option>
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Healthy_0.json">T Helper Cell Differentiation - Healthy 0 - Targets</option>
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Healthy_1.json">T Helper Cell Differentiation - Healthy 1 - Targets</option>
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Healthy_2.json">T Helper Cell Differentiation - Healthy 2 - Targets</option>
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Healthy_3.json">T Helper Cell Differentiation - Healthy 3 - Targets</option>
+        <option value="t_helper_cell_differentiation/toppaths_rnaseq_clinical_target_Healthy_4.json">T Helper Cell Differentiation - Healthy 4 - Targets</option> -->
+
+        <!-- <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_source_Infection_all.json">Th1 and Th2 Activation Pathway - Infection Paths - Sources</option> -->
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_source_Infection_Infection.json">Th1 and Th2 Activation Pathway - Infection Infection - Sources</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_source_Infection_Healthy.json">Th1 and Th2 Activation Pathway - Infection Healthy - Sources</option>
+        <!-- <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_source_Healthy_all.json">Th1 and Th2 Activation Pathway - Healthy Paths - Sources</option> -->
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_source_Healthy_Healthy.json">Th1 and Th2 Activation Pathway - Healthy Healthy - Sources</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_source_Healthy_Infection.json">Th1 and Th2 Activation Pathway - Healthy Infection - Sources</option>
+<!--         <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_source_Infection_0.json">Th1 and Th2 Activation Pathway - Infection 0 - Sources</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_source_Infection_1.json">Th1 and Th2 Activation Pathway - Infection 1 - Sources</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_source_Infection_2.json">Th1 and Th2 Activation Pathway - Infection 2 - Sources</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_source_Healthy_0.json">Th1 and Th2 Activation Pathway - Healthy 0 - Sources</option> -->
+
+        <!-- <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Infection_all.json">Th1 and Th2 Activation Pathway - Infection Paths - Targets</option> -->
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Infection_Infection.json">Th1 and Th2 Activation Pathway - Infection Infection - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Infection_Healthy.json">Th1 and Th2 Activation Pathway - Infection Healthy - Targets</option>
+        <!-- <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Healthy_all.json">Th1 and Th2 Activation Pathway - Healthy Paths - Targets</option> -->
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">Th1 and Th2 Activation Pathway - Healthy Healthy - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Healthy_Infection.json">Th1 and Th2 Activation Pathway - Healthy Infection - Targets</option>
+<!--         <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Infection_0.json">Th1 and Th2 Activation Pathway - Infection 0 - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Infection_1.json">Th1 and Th2 Activation Pathway - Infection 1 - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Infection_2.json">Th1 and Th2 Activation Pathway - Infection 2 - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Infection_3.json">Th1 and Th2 Activation Pathway - Infection 3 - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Infection_4.json">Th1 and Th2 Activation Pathway - Infection 4 - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Infection_5.json">Th1 and Th2 Activation Pathway - Infection 5 - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Infection_6.json">Th1 and Th2 Activation Pathway - Infection 6 - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Infection_7.json">Th1 and Th2 Activation Pathway - Infection 7 - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Infection_8.json">Th1 and Th2 Activation Pathway - Infection 8 - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Infection_9.json">Th1 and Th2 Activation Pathway - Infection 9 - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Healthy_0.json">Th1 and Th2 Activation Pathway - Healthy 0 - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Healthy_1.json">Th1 and Th2 Activation Pathway - Healthy 1 - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Healthy_2.json">Th1 and Th2 Activation Pathway - Healthy 2 - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Healthy_3.json">Th1 and Th2 Activation Pathway - Healthy 3 - Targets</option>
+        <option value="th1_and_th2_activation_pathway/toppaths_rnaseq_clinical_target_Healthy_4.json">Th1 and Th2 Activation Pathway - Healthy 4 - Targets</option> -->
+
+        <!-- <option value="th2_pathway/toppaths_rnaseq_clinical_source_Infection_all.json">Th2 Pathway - Infection Paths - Sources</option> -->
+        <option value="th2_pathway/toppaths_rnaseq_clinical_source_Infection_Infection.json">Th2 Pathway - Infection Infection - Sources</option>
+        <option value="th2_pathway/toppaths_rnaseq_clinical_source_Infection_Healthy.json">Th2 Pathway - Infection Healthy - Sources</option>
+        <!-- <option value="th2_pathway/toppaths_rnaseq_clinical_source_Healthy_all.json">Th2 Pathway - Healthy Paths - Sources</option> -->
+        <option value="th2_pathway/toppaths_rnaseq_clinical_source_Healthy_Healthy.json">Th2 Pathway - Healthy Healthy - Sources</option>
+        <option value="th2_pathway/toppaths_rnaseq_clinical_source_Healthy_Infection.json">Th2 Pathway - Healthy Infection - Sources</option>
+<!--         <option value="th2_pathway/toppaths_rnaseq_clinical_source_Infection_0.json">Th2 Pathway - Infection 0 - Sources</option>
+        <option value="th2_pathway/toppaths_rnaseq_clinical_source_Infection_1.json">Th2 Pathway - Infection 1 - Sources</option>
+        <option value="th2_pathway/toppaths_rnaseq_clinical_source_Healthy_0.json">Th2 Pathway - Healthy 0 - Sources</option> -->
+
+        <!-- <option value="th2_pathway/toppaths_rnaseq_clinical_target_Infection_all.json">Th2 Pathway - Infection Paths - Targets</option> -->
+        <option value="th2_pathway/toppaths_rnaseq_clinical_target_Infection_Infection.json">Th2 Pathway - Infection Infection - Targets</option>
+        <option value="th2_pathway/toppaths_rnaseq_clinical_target_Infection_Healthy.json">Th2 Pathway - Infection Healthy - Targets</option>
+        <!-- <option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_all.json">Th2 Pathway - Healthy Paths - Targets</option> -->
+        <option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">Th2 Pathway - Healthy Healthy - Targets</option>
+        <option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_Infection.json">Th2 Pathway - Healthy Infection - Targets</option>
+<!--         <option value="th2_pathway/toppaths_rnaseq_clinical_target_Infection_0.json">Th2 Pathway - Infection 0 - Targets</option>
+        <option value="th2_pathway/toppaths_rnaseq_clinical_target_Infection_1.json">Th2 Pathway - Infection 1 - Targets</option>
+        <option value="th2_pathway/toppaths_rnaseq_clinical_target_Infection_2.json">Th2 Pathway - Infection 2 - Targets</option>
+        <option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_0.json">Th2 Pathway - Healthy 0 - Targets</option>
+        <option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_1.json">Th2 Pathway - Healthy 1 - Targets</option>
+        <option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_2.json">Th2 Pathway - Healthy 2 - Targets</option>
+        <option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_3.json">Th2 Pathway - Healthy 3 - Targets</option>
+        <option value="th2_pathway/toppaths_rnaseq_clinical_target_Healthy_4.json">Th2 Pathway - Healthy 4 - Targets</option> -->
+
+
+
+
+      </select>
+
+<!--     <p></p>
+    <label for="style" class="tooltip u-pull-left" title="Switch to a new graph stylesheet">Active stylesheet</label>
+    <div class="u-cf"></div>
+    <select id="style">
+        <option value="custom.json" selected>Custom</option>
+      </select>
+
+    <p></p>
+    <label for="layout" class="tooltip u-pull-left" title="Change layout">Active layout</label>
+    <div class="u-cf"></div>
+    <select id="layout">
+        <option value="custom" selected>Custom</option>
+      </select>
+    <i id="redo-layout" class="fa fa-refresh action-icon tooltip" title="Redo layout"></i>
+
+    <p></p>
+    <label for="algorithm" class="tooltip u-pull-left" title="Run algorithm. Try running A* a few times to see distances to different nodes">
+        Run algorithm
+      </label>
+    <div class="u-cf"></div>
+    <select id="algorithm">
+        <option value="none" selected>None</option>
+      </select>
+    <i id="redo-algorithm" class="fa fa-refresh action-icon tooltip" title="Redo algorithm visualization"></i> -->
+
+  <div class="footer-link">
+    <a target="_blank" href="http://js.cytoscape.org">js.cytoscape.org</a>
+  </div>
+</body>
+
+</html>

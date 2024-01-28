@@ -1,0 +1,10 @@
+<option value="il-6_signaling/toppaths_rnaseq_clinical_target_Infection_all.json">IL-6 Signaling - Infection Paths - Targets</option>
+<option value="il-6_signaling/toppaths_rnaseq_clinical_target_Infection_Infection.json">IL-6 Signaling - Infection Infection - Targets</option>
+<option value="il-6_signaling/toppaths_rnaseq_clinical_target_Infection_Healthy.json">IL-6 Signaling - Infection Healthy - Targets</option>
+<option value="il-6_signaling/toppaths_rnaseq_clinical_target_Healthy_all.json">IL-6 Signaling - Healthy Paths - Targets</option>
+<option value="il-6_signaling/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">IL-6 Signaling - Healthy Healthy - Targets</option>
+<option value="il-6_signaling/toppaths_rnaseq_clinical_target_Healthy_Infection.json">IL-6 Signaling - Healthy Infection - Targets</option>
+<option value="il-6_signaling/toppaths_rnaseq_clinical_target_Infection_0.json">IL-6 Signaling - Infection 0 - Targets</option>
+<option value="il-6_signaling/toppaths_rnaseq_clinical_target_Healthy_0.json">IL-6 Signaling - Healthy 0 - Targets</option>
+<option value="il-6_signaling/toppaths_rnaseq_clinical_target_Healthy_1.json">IL-6 Signaling - Healthy 1 - Targets</option>
+<option value="il-6_signaling/toppaths_rnaseq_clinical_target_Healthy_2.json">IL-6 Signaling - Healthy 2 - Targets</option>

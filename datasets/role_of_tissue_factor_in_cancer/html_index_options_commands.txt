@@ -1,0 +1,10 @@
+<option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Infection_all.json">Role of Tissue Factor in Cancer - Infection Paths - Targets</option>
+<option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Infection_Infection.json">Role of Tissue Factor in Cancer - Infection Infection - Targets</option>
+<option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Infection_Healthy.json">Role of Tissue Factor in Cancer - Infection Healthy - Targets</option>
+<option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Healthy_all.json">Role of Tissue Factor in Cancer - Healthy Paths - Targets</option>
+<option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">Role of Tissue Factor in Cancer - Healthy Healthy - Targets</option>
+<option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Healthy_Infection.json">Role of Tissue Factor in Cancer - Healthy Infection - Targets</option>
+<option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Infection_0.json">Role of Tissue Factor in Cancer - Infection 0 - Targets</option>
+<option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Healthy_0.json">Role of Tissue Factor in Cancer - Healthy 0 - Targets</option>
+<option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Healthy_1.json">Role of Tissue Factor in Cancer - Healthy 1 - Targets</option>
+<option value="role_of_tissue_factor_in_cancer/toppaths_rnaseq_clinical_target_Healthy_2.json">Role of Tissue Factor in Cancer - Healthy 2 - Targets</option>

@@ -1,0 +1,12 @@
+<option value="stat3_pathway/toppaths_rnaseq_clinical_target_Infection_all.json">STAT3 Pathway - Infection Paths - Targets</option>
+<option value="stat3_pathway/toppaths_rnaseq_clinical_target_Infection_Infection.json">STAT3 Pathway - Infection Infection - Targets</option>
+<option value="stat3_pathway/toppaths_rnaseq_clinical_target_Infection_Healthy.json">STAT3 Pathway - Infection Healthy - Targets</option>
+<option value="stat3_pathway/toppaths_rnaseq_clinical_target_Healthy_all.json">STAT3 Pathway - Healthy Paths - Targets</option>
+<option value="stat3_pathway/toppaths_rnaseq_clinical_target_Healthy_Healthy.json">STAT3 Pathway - Healthy Healthy - Targets</option>
+<option value="stat3_pathway/toppaths_rnaseq_clinical_target_Healthy_Infection.json">STAT3 Pathway - Healthy Infection - Targets</option>
+<option value="stat3_pathway/toppaths_rnaseq_clinical_target_Infection_0.json">STAT3 Pathway - Infection 0 - Targets</option>
+<option value="stat3_pathway/toppaths_rnaseq_clinical_target_Infection_1.json">STAT3 Pathway - Infection 1 - Targets</option>
+<option value="stat3_pathway/toppaths_rnaseq_clinical_target_Infection_2.json">STAT3 Pathway - Infection 2 - Targets</option>
+<option value="stat3_pathway/toppaths_rnaseq_clinical_target_Healthy_0.json">STAT3 Pathway - Healthy 0 - Targets</option>
+<option value="stat3_pathway/toppaths_rnaseq_clinical_target_Healthy_1.json">STAT3 Pathway - Healthy 1 - Targets</option>
+<option value="stat3_pathway/toppaths_rnaseq_clinical_target_Healthy_2.json">STAT3 Pathway - Healthy 2 - Targets</option>
